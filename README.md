@@ -1,6 +1,6 @@
 # G2_LPC
 
-##Prova G2 Linguagem de Promgramação Comercial I
+## Prova G2 Linguagem de Promgramação Comercial I
 
 
 Aluno: Dionnys Santos Marinho.
