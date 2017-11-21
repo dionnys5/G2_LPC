@@ -8,30 +8,46 @@ Principais Campos
 fields = (‘id’, ‘nome’)
 fields = ‘__all__’
 exclude = ('id', )
-
 '''
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ('username','email','is_staff', 'url')
+        fields = ('username','email')
 
-class PessoaSerializer(serializers.HyperlinkedModelSerializer):
+class ServidorSerializer(serializers.HyperlinkedModelSerializer):
     usuario = UserSerializer(many=False)
     class Meta:
-        model = Pessoa
-        fields = '__all__'
+        model = Servidor
+        fields = ('nome','usuario','votou')
         
     def create(self, data):
         usuario = data.pop('usuario')
         user = User.objects.create(**usuario)
-        pessoa = Pessoa.objects.create(usuario=user, **data)
-        return pessoa
-    
-    def update(self, pessoa, data):
-        pessoa.nome = data.get('nome', pessoa.nome)
-        pessoa.idade = data.get('idade', pessoa.idade)
-        pessoa.cpf = data.get('cpf', pessoa.cpf)
-        pessoa.save()
-        return pessoa
+        servidor = Servidor.objects.create(usuario=user, **data)
+        return servidor
 
+class EleicaoSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Eleicao
+        fields = '__all__'
+
+class VagaSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Vaga
+        fields = '__all__'
+
+class TokenSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Token
+        fields = '__all__'
+
+class CandidatoSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Candidato
+        fields = ('vaga','servidor')
+
+class VotoSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Voto
+        fields = '__all__'

@@ -20,12 +20,17 @@ from web_app.views import *
 
 
 router = routers.DefaultRouter()
-router.register(r'user', UserViewSet)
-router.register(r'pessoa', PessoaViewSet)
+router.register(r'eleicao', EleicaoViewSet)
+router.register(r'eleitor', ServidorViewSet)
+router.register(r'vagas', VagaViewSet)
+router.register(r'candidato', CandidatoViewSet)
+router.register(r'votar', VotoViewSet)
+router.register(r'token', TokenViewSet)
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^resultado/', Resultado, name='resultados'),
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
